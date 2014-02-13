@@ -25,7 +25,7 @@ body {
 }
 
 .me:hover a {
-  display:block;
+  display:inline;
 }
 
 .me a {
