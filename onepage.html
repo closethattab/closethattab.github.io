@@ -1,0 +1,117 @@
+<!doctype HTML>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <title>Close That Tab</title>
+
+  <style>
+    body, div {
+      margin:0;border:0;padding:0;font:inherit;outline:none;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+      font-weight: 300;
+      font-size:32px;
+      color:#333;
+    }
+
+    .title, .text {
+      text-align:center;
+      width:100%;
+    }
+
+    .me {
+      margin-top:60px;
+      height:20px;
+      font-size:14px;
+      text-align:center;
+      width:100%;
+    }
+
+    .me:hover a {
+      display:inline;
+    }
+
+    .me a {
+      display:none;
+      text-decoration:none;
+      color:#aaa;
+    }
+    
+    @media all and (max-width : 500px) {
+      .me a {
+        display:inline;
+      }
+
+      .wrapper {
+        cursor:pointer;
+      }
+    }
+
+    .wrapper {
+      width:100%;
+      max-width:600px;
+      margin:100px auto 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="title">close that tab and</div>
+    <div class="text" id="text"></div>
+    <div class="me"><a href="http://twitter.com/robhdawson">who made this</a></div>
+  </div>
+
+  <script>
+    Array.prototype.shuffle = function () { //v1.0
+      for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+      return this;
+    };
+
+    window.activities = 'take a walk, reread a good book, stare at a wall, try a new tea, type gibberish into a text file, doodle a rabbit, find a dog and pet it, make a nice sandwich, smell a candle, think about penguins, image search "marmoset", turn off the internet, bake some cookies, learn to finger knit, memorize a poem, go outside for like three goddamn minutes'.split(", ").shuffle();
+
+    window.colors = "#FFFEFA".split(", ").shuffle();
+
+
+    var index;
+
+    function swap() {
+      index = (index + 1) % activities.length;
+      var choice = activities[index];
+      $("#text").text(choice);
+    }
+
+    $(document).ready(function() {
+      var d = new Date();
+
+      var color = colors[d.getSeconds() % colors.length];
+      $("body").css({backgroundColor: color})
+
+      index = d.getMilliseconds() % activities.length;
+      var choice = activities[index];
+      $("#text").text(choice);
+
+
+      $(".me").mouseenter(function() {
+        $(".me").addClass("hover");
+      });
+      $(".me").mouseleave(function() {
+        $(".me").addClass("hover");
+      });
+
+      $(".wrapper").click(function() {
+        if($(window).width() <= 500) {
+          swap();
+        }
+      });
+    })
+
+    $(document).keypress(function(e) {
+      if(e.which == 32) {
+        e.preventDefault();
+        swap();
+      }
+    })
+  </script>
+</body>
