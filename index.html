@@ -1,0 +1,51 @@
+<!doctype HTML>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="choices.js"></script>
+  <title>Close That Tab</title>
+  <link href="tabs.css" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="title">close that tab and</div>
+    <div class="text" id="text"></div>
+    <div class="me"><a href="http://twitter.com/robhdawson">i made this</a></div>
+  </div>
+
+  <script>
+    var index;
+
+    function swap() {
+      index = (index + 1) % activities.length;
+      var choice = activities[index];
+      $("#text").text(choice);
+    }
+
+    $(document).ready(function() {
+      var d = new Date();
+
+      var color = colors[d.getSeconds() % colors.length];
+      $("body").css({backgroundColor: color})
+
+      index = d.getMilliseconds() % activities.length;
+      var choice = activities[index];
+      $("#text").text(choice);
+
+
+      $(".me").mouseenter(function() {
+        $(".me").addClass("hover");
+      });
+      $(".me").mouseleave(function() {
+        $(".me").addClass("hover");
+      });
+    })
+
+    $(document).keypress(function(e) {
+      if(e.which == 32) {
+        e.preventDefault();
+        swap();
+      }
+    })
+  </script>
+</body>
